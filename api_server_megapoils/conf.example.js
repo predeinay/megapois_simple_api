@@ -7,5 +7,6 @@ module.exports = {
     dbPass : "Ur89129748566",
     dbName : "megapolis",
     dbPoolMin : 2,
-    dbPoolMax : 4
+    dbPoolMax : 4,
+    secret : "123"
 }

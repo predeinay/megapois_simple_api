@@ -1,5 +1,6 @@
 const http = require("http");
 const conf = require("./conf");
+const auth = require("./auth");
 
 const routes = {
            "acc_info" : require("./models/acc_info"),
@@ -11,6 +12,15 @@ const routes = {
 // err resp
 const errResp = (res, errorMsg) => {
     res.writeHeader(404);
+    res.write(JSON.stringify(
+        { ok :false, errorMsg : errorMsg }
+    ));
+    res.end();
+}
+
+// bad auth resp
+const errAuth = (res, errorMsg) => {
+    res.writeHeader(401);
     res.write(JSON.stringify(
         { ok :false, errorMsg : errorMsg }
     ));
@@ -29,7 +39,10 @@ const okResp = (res, data) => {
 http.createServer((req, res) => {
     // alway return json
     res.setHeader("Content-Type","application/json");
-
+    if (!auth(req.headers)) {
+        errAuth(res, "bad auth");
+        return
+    }
     const urlParams = req.url.split("/");
     const route = routes[urlParams[1]];
     if (!route) {
@@ -44,5 +57,5 @@ http.createServer((req, res) => {
         }
         okResp(res,data);
     } );
-    
+
 }).listen(conf.httpServerPort)
