@@ -19,12 +19,13 @@ class MSDB {
             options : {
                 database : conf.dbName,
                 rowCollectionOnRequestCompletion : true,
-                rowCollectionOnDone : true
+                rowCollectionOnDone : true,
+		dateFormat : "dmy"
             }
         };
 
         // Создаем пул соединений к СУБД
-        this.pool = new ConnectionPool(poolConfig, connectionConfig);
+        this.pool = new ConnectionPool(poolConfig, connectionConfig,{dateFormat:"dmy"});
 
         this.pool.on('error', (err) => {
             console.error(err);
