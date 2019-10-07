@@ -44,6 +44,7 @@ class MSDB {
             const request = new Request(sql, (err, rowCount, rows) => {
                 if (err) {
                     console.error(err);
+		    connection.release();
                     cb(err);
                     return;
                 }
