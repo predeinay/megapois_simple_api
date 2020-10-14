@@ -40,10 +40,10 @@ const okResp = (res, data) => {
 http.createServer((req, res) => {
     // alway return json
     res.setHeader("Content-Type","application/json");
-    // if (!auth(req.headers)) {
-    //     errAuth(res, "bad auth");
-    //     return
-    // }
+    if (!auth(req.headers)) {
+        errAuth(res, "bad auth");
+        return
+    }
     const urlParams = req.url.split("/");
     const route = routes[urlParams[1]];
     if (!route) {
