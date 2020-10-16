@@ -14,6 +14,10 @@ module.exports = (params, cb = () => {}) => {
           { name: "month", value: new Date(transaction.trans_date).toISOString() }
         ]
         db.exec(`select * from dbo.acc_transaction_detail(@account_num, @month)`, queryParams, (err, rowCount, transactionDetails) => {
+          if (err) {
+            cb(err, []);
+            return;
+          }
           transaction.detail = transactionDetails
 
           details++
@@ -21,7 +25,7 @@ module.exports = (params, cb = () => {}) => {
         });
       }
     } else {
-      cb(err,rows);
+      cb(err, transactions);
     }
   });
 }
