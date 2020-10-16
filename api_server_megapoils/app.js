@@ -6,7 +6,8 @@ const routes = {
            "acc_info" : require("./models/acc_info"),
     "acc_transaction" : require("./models/acc_transaction"),
           "acc_meter" : require("./models/acc_meter"),
-   "acc_meter_client" : require("./models/acc_meter_client")
+   "acc_meter_client" : require("./models/acc_meter_client"),
+    "acc_transaction_detail": require('./models/acc_transaction_detail')
 }
 
 // err resp
