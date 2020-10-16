@@ -11,7 +11,7 @@ module.exports = (params, cb = () => {}) => {
 
         const queryParams = [
           { name: "account_num", value: transaction.account_num },
-          { name: "month", value: new Date(transaction.trans_date).toISOString() }
+          { name: "month", value: new Date(transaction.trans_month).toISOString() }
         ]
         db.exec(`select * from dbo.acc_transaction_detail(@account_num, @month)`, queryParams, (err, rowCount, transactionDetails) => {
           if (err) {
