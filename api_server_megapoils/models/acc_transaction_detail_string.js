@@ -23,10 +23,17 @@ module.exports = async (params, cb = () => {}) => {
   
     for (const transaction of transactions) {
       if (transaction.pay_amount != 0) continue
-  
+
+      const trans_month = new Date(transaction.trans_month)
+      const date = {
+        day: trans_month.getDate() < 10 ? `0${trans_month.getDate()}` : trans_month.getDate(),
+        month: trans_month.getMonth() + 1 < 10 ? `0${trans_month.getMonth() + 1}`: trans_month.getMonth() + 1,
+        year: trans_month.getFullYear()
+      }
+
       const queryParams = [
         { name: "account_num", value: transaction.account_num },
-        { name: "month", value: new Date(transaction.trans_month).toLocaleDateString() }
+        { name: "month", value: `${date.year}${date.month}${date.day}` }
       ]
   
       transaction.detail = await accTransactionDetail(queryParams)

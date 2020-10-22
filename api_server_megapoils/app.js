@@ -7,7 +7,8 @@ const routes = {
     "acc_transaction" : require("./models/acc_transaction"),
           "acc_meter" : require("./models/acc_meter"),
    "acc_meter_client" : require("./models/acc_meter_client"),
-    "acc_transaction_detail": require('./models/acc_transaction_detail')
+    "acc_transaction_detail": require('./models/acc_transaction_detail'),
+    "acc_transaction_detail_string": require('./models/acc_transaction_detail_string')
 }
 
 // err resp
