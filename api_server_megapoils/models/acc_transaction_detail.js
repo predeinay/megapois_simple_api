@@ -24,9 +24,11 @@ module.exports = async (params, cb = () => {}) => {
     for (const transaction of transactions) {
       if (transaction.pay_amount != 0) continue
   
+      const date = new Date(transaction.trans_month)
+
       const queryParams = [
         { name: "account_num", value: transaction.account_num },
-        { name: "month", value: new Date(transaction.trans_month).toLocaleDateString() }
+        { name: "month", value: new Date(date.setDate(date.getDate() + 1)).toISOString() }
       ]
   
       transaction.detail = await accTransactionDetail(queryParams)
