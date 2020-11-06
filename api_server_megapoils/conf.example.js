@@ -8,5 +8,6 @@ module.exports = {
     dbName : "megapolis",
     dbPoolMin : 2,
     dbPoolMax : 4,
-    secret : "123"
+    secret : "123",
+    invoicesPath: "/opt/invoices"
 }
