@@ -8,7 +8,8 @@ const routes = {
           "acc_meter" : require("./models/acc_meter"),
    "acc_meter_client" : require("./models/acc_meter_client"),
     "acc_transaction_detail": require('./models/acc_transaction_detail'),
-    "acc_transaction_detail_string": require('./models/acc_transaction_detail_string')
+    "acc_transaction_detail_string": require('./models/acc_transaction_detail_string'),
+    "acc_invoice_download": require('./models/acc_invoice_download')
 }
 
 // err resp
@@ -38,6 +39,13 @@ const okResp = (res, data) => {
     res.end();
 }
 
+const okRespFile = (res, data) => {
+    res.setHeader('Content-length', data.size);
+    res.setHeader('Content-Disposition', `attachment; filename=${data.name}`);
+    res.write(data.file, 'binary');
+    res.end();
+}
+
 http.createServer((req, res) => {
     // alway return json
     res.setHeader("Content-Type","application/json");
@@ -57,7 +65,12 @@ http.createServer((req, res) => {
             errResp(res, err);
             return
         }
-        okResp(res,data);
+
+        if (urlParams[1] === 'acc_invoice_download') {
+            okRespFile(res, data)
+        } else {
+            okResp(res,data);
+        }
     } );
 
 }).listen(conf.httpServerPort)
